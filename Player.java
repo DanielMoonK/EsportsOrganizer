@@ -5,6 +5,8 @@ public class Player{
     private String email;
     private String discordUser;
     private String hselUser;
+    private int numStrikes;
+    private static int numCurrentPlayers = 0;
 
     public Player(String n, String e, String d, String h, int g, int i){
         name = n;
@@ -13,6 +15,28 @@ public class Player{
         hselUser = h;
         grade = g;
         idNumber = i;
+        numCurrentPlayers++;
+        numStrikes = 0;
+    }
+
+    public static void removeMember(){
+        numCurrentPlayers--;
+    }
+
+    public static int getNumPlayers(){
+        return numCurrentPlayers;
+    }
+
+    public void assignStrike(){
+        numStrikes++;
+    }
+
+    public void removeStrike(){
+        numStrikes--;
+    }
+
+    public void resetStrikes(){
+        numStrikes = 0;
     }
 
     public String getName(){
@@ -39,7 +63,11 @@ public class Player{
         return idNumber;
     }
 
+    public int getStrikes(){
+        return numStrikes;
+    }
+
     public String toString(){
-        return "Name: " + name + "\nGrade: " + grade + "th\nOsis: " + idNumber + "\nEmail: " + email + "\nDiscord User: " + discordUser + "\nHSEL User: " + hselUser;
+        return "Name: " + name + "\nGrade: " + grade + "th\nOsis: " + idNumber + "\nEmail: " + email + "\nDiscord User: " + discordUser + "\nHSEL User: " + hselUser + "\nNumber of Strikes: " + numStrikes;
     }
 }
