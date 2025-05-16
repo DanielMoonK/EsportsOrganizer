@@ -5,14 +5,15 @@ public class Roster{
     private int numPlayers; //Minimum numpler of players for said game
     private ArrayList<Player> roster; //Array list of current roster
     private boolean registered;
+    private static int numRosters = 0;
 
-    public Roster(String g, int n, Player[] r){
+    public Roster(String g, int n, ArrayList<Player> r){
         game = g;
         numPlayers = n;
         registered = false;
-        roster = new ArrayList<Player>();
-        for(int i=0; i<r.length; i++){
-            roster.add(r[i]);
+        roster = r;
+        for(Player p: roster){
+            p.addGames(game);
         }
     }
 
@@ -43,6 +44,7 @@ public class Roster{
         for(int i=0; i<roster.size(); i++){
             if(roster.get(i).getName().equals(name)){
                 if(roster.get(i).getID() == osis){
+                    roster.get(i).removeGames(game);
                     roster.remove(i);
                     Player.removeMember();
                     return true;
@@ -63,6 +65,7 @@ public class Roster{
     public boolean register(){
         if(active()){
             registered = true;
+            numRosters++;
         }
         return registered;
     }
@@ -75,5 +78,9 @@ public class Roster{
     // Determines whether the roster has enough players to be competitively active
     public boolean active(){
         return roster.size() >= numPlayers;
+    }
+
+    public static int getNumRosters(){
+        return numRosters;
     }
 }
