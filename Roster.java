@@ -5,16 +5,12 @@ public class Roster{
     private int numPlayers; //Minimum numpler of players for said game
     private ArrayList<Player> roster; //Array list of current roster
     private boolean registered;
-    private static int numRosters = 0;
 
-    public Roster(String g, int n, ArrayList<Player> r){
+    public Roster(String g, int n){
         game = g;
         numPlayers = n;
         registered = false;
-        roster = r;
-        for(Player p: roster){
-            p.addGames(game);
-        }
+        roster = new ArrayList<Player>();
     }
 
     //Returns each member and information about member from the roster in sections
@@ -27,16 +23,21 @@ public class Roster{
         return out;
     }
 
+    //Adds a player to the roster
+    public void addPlayer(Player p){
+        roster.add(p);
+    }
+
     //Searches for a player in the roster, printing their info if found
-    public String findPlayer(String name, int osis){
+    public Player findPlayer(String name, int osis){
         for(int i=0; i<roster.size(); i++){
             if(roster.get(i).getName().equals(name)){
                 if(roster.get(i).getID() == osis){
-                    return roster.get(i).toString();
+                    return roster.get(i);
                 }
             }
         }
-        return "Player not found";
+        return null;
     }
 
     //Removes a member based on name and osis. If member exists, returns true. If not, return false.
@@ -46,7 +47,6 @@ public class Roster{
                 if(roster.get(i).getID() == osis){
                     roster.get(i).removeGames(game);
                     roster.remove(i);
-                    Player.removeMember();
                     return true;
                 }
             }
@@ -65,7 +65,6 @@ public class Roster{
     public boolean register(){
         if(active()){
             registered = true;
-            numRosters++;
         }
         return registered;
     }
@@ -78,9 +77,5 @@ public class Roster{
     // Determines whether the roster has enough players to be competitively active
     public boolean active(){
         return roster.size() >= numPlayers;
-    }
-
-    public static int getNumRosters(){
-        return numRosters;
     }
 }

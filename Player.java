@@ -7,26 +7,16 @@ public class Player{
     private String email;
     private int numStrikes;
     private ArrayList<String> games;
-    private static int numCurrentPlayers = 0;
 
     public Player(String n, String e, int g, int i){
         name = n;
         email = e;
         grade = g;
         idNumber = i;
-        numCurrentPlayers++;
         numStrikes = 0;
         games = new ArrayList<String>();
     }
-
-    public static void removeMember(){
-        numCurrentPlayers--;
-    }
-
-    public static int getNumPlayers(){
-        return numCurrentPlayers;
-    }
-
+    
     public void assignStrike(){
         numStrikes++;
     }
