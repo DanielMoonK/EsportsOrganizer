@@ -11,7 +11,7 @@ public class Organizer{
     }
 
     // Searches for a specific player
-    public Player findPlayer(String game, int osis){
+    public Player findPlayer(int osis){
         for(Player p: players){
             if(p.getID() == osis) return p;
         }
@@ -19,7 +19,7 @@ public class Organizer{
     }
 
     // Creates a new roster with a specified game and empty player list
-    public void newRoster(String g, int n){
+    public void newRoster(){
         Scanner rosterScan = new Scanner(System.in);
         System.out.print("Game of roster: ");
         String game = rosterScan.nextLine();
@@ -50,6 +50,65 @@ public class Organizer{
                     if(p.getID()==osis) r.addPlayer(p);
                 }
             }
+        }
+    }
+
+    //Removes a player from the player list
+    public void removePlayer(int osis){
+        for(int i=0; i<players.size(); i++){
+            if(players.get(i).getID() == osis){
+                players.remove(i);
+                break;
+            }
+        }
+    }
+
+    //Removes a player from a roster
+    public void removePlayerRoster(String game, int osis){
+        for(Roster r: rosters){
+            if(r.getGame().equals(game)){
+                r.removePlayer(osis);
+                break;
+            }
+        }
+    }
+
+    //Returns number of registered rosters
+    public int numRegRosters(){
+        int count = 0;
+        for(Roster r: rosters){
+            if(r.isRegistered()) count++;
+        }
+        return count;
+    }
+
+    //Returns number of players
+    public int numPlayers(){
+        return players.size();
+    }
+
+    //Returns a string of all the players names
+    public String printPlayerNames(){
+        String names = "";
+        for(Player p: players){
+            names += p.getName() + ", ";
+        }
+        return names;
+    }
+
+    //Returns a string of all rosters
+    public String printRosters(){
+        String total = "";
+        for(Roster r: rosters){
+            total = r.toString() + "\n--------------------------------------------\n";
+        }
+        return total;
+    }
+
+    //Applies a strike to a player
+    public void applyStrike(int osis){
+        for(Player p: players){
+            p.assignStrike();
         }
     }
 }
