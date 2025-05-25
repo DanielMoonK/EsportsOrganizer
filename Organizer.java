@@ -57,6 +57,13 @@ public class Organizer{
     public void removePlayer(int osis){
         for(int i=0; i<players.size(); i++){
             if(players.get(i).getID() == osis){
+                for(String g: players.get(i).getGames()){
+                    for(Roster r: rosters){
+                        if(r.getGame().equals(g)){
+                            r.removePlayer(osis);
+                        }
+                    }
+                }
                 players.remove(i);
                 break;
             }
@@ -68,6 +75,19 @@ public class Organizer{
         for(Roster r: rosters){
             if(r.getGame().equals(game)){
                 r.removePlayer(osis);
+                break;
+            }
+        }
+    }
+
+    // Removes a roster, removing the game from the player's data then the whole list
+    public void removeRoster(String game){
+        for(int i=0; i<rosters.size(); i++){
+            if(rosters.get(i).getGame().equals(game)){
+                for(Player p: getRoster()){
+                    p.removeGames(game);
+                }
+                rosters.remove(i);
                 break;
             }
         }
