@@ -120,7 +120,7 @@ public class Organizer{
     public String printRosters(){
         String total = "";
         for(Roster r: rosters){
-            total = r.toString() + "\n--------------------------------------------\n";
+            total += r.toString() + "\n--------------------------------------------\n";
         }
         return total;
     }
@@ -142,15 +142,5 @@ public class Organizer{
         for(Player p: players){
             p.assignStrike();
         }
-    }
-
-    //Registers the roster in quesetion, unless the game does not exist or roster does not have enough players
-    public String registerRoster(String game){
-        for(Roster r: rosters){
-            if(r.getGame().equals(game)){
-                if(r.register()) return "Registered " + game + " successfully";
-            }
-        }
-        return "Registration failed";
     }
 }

@@ -9,19 +9,20 @@ public class Roster{
     public Roster(String g, int n){
         game = g;
         numPlayers = n;
-        registered = false;
+        registered = false; // Roster is automatically registered once it meets min player requirement
         roster = new ArrayList<Player>();
     }
 
     //Returns info about the roster
     public String toString(){
-        return "Game: " + game + "\nNumber of players needed: " + numPlayers + "\n Number of players in roster: " + roster.size();
+        return "Game: " + game + "\nNumber of players needed: " + numPlayers + "\nNumber of players in roster: " + roster.size();
     }
 
     //Adds a player to the roster, and includes the game into the player's list of games
     public void addPlayer(Player p){
         roster.add(p);
         p.addGames(game);
+        if(roster.size()>=numPlayers) registered = true;
     }
 
     //Searches for a player in the roster, printing their info if found
@@ -40,18 +41,11 @@ public class Roster{
             if(roster.get(i).getID() == osis){
                 roster.get(i).removeGames(game);
                 roster.remove(i);
+                if(roster.size()<numPlayers) registered = false;
                 return true;
             }
         }
         return false;
-    }
-
-    // Marks the roster as registered if the number of players are adequate
-    public boolean register(){
-        if(this.active()){
-            registered = true;
-        }
-        return registered;
     }
 
     // Returns the game name
@@ -62,11 +56,6 @@ public class Roster{
     // Returns the list of players
     public ArrayList<Player> getRoster(){
         return roster;
-    }
-
-    // Determines whether the roster has enough players to be competitively active
-    public boolean active(){
-        return roster.size() >= numPlayers;
     }
 
     //Returns whether the roster is registered

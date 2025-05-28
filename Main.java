@@ -9,7 +9,7 @@ public class Main{
         System.out.println("Welcome to the roster organizer.");
         while(running){
             System.out.println("There are currently " + myOrg.numRegRosters() + " registered rosters and " + myOrg.numPlayers() + " registered members.");
-            System.out.println("Would you like to: \nA) Register a player\nB) Create a roster\nC) View all players\nD) View all players in a roster\nE) View all rosters\nF) Search for a player's info\nG) Add a player to a roster\nH) Add a strike to a player\nI) Remove a strike from a player\nJ) Remove a player from a roster\nK) Remove a player from the organization\nL) Remove a roster\nM) Register a roster\n\nZ) Exit");
+            System.out.println("Would you like to: \nA) Register a player\nB) Create a roster\nC) View all players\nD) View all players in a roster\nE) View all rosters\nF) Search for a player's info\nG) Add a player to a roster\nH) Add a strike to a player\nI) Remove a strike from a player\nJ) Remove a player from a roster\nK) Remove a player from the organization\nL) Remove a roster\nZ) Exit");
             String input = myScan.nextLine();
             if(input.equals("A")){
                 myOrg.newPlayer();
@@ -25,7 +25,7 @@ public class Main{
             if(input.equals("D")){
                 System.out.print("Enter the game of the roster: ");
                 String game = myScan.nextLine();
-                System.out.prinln(myOrg.printPlayerNamesInRoster(game));
+                System.out.println(myOrg.printPlayerNamesInRoster(game));
             }
             if(input.equals("E")){
                 System.out.println(myOrg.printRosters());
@@ -74,11 +74,6 @@ public class Main{
                 String game = myScan.nextLine();
                 myOrg.removeRoster(game);
                 System.out.println("Roster removed successfully");
-            }
-            if(input.equals("M")){
-                System.out.println("Enter the game of the roster: ");
-                String game = myScan.nextLine();
-                System.out.println(myOrg.registerRoster(game));
             }
             if(input.equals("Z")){
                 System.out.println("Thank you for using the organizer.");
