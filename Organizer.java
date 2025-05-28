@@ -84,7 +84,7 @@ public class Organizer{
     public void removeRoster(String game){
         for(int i=0; i<rosters.size(); i++){
             if(rosters.get(i).getGame().equals(game)){
-                for(Player p: getRoster()){
+                for(Player p: rosters.get(i).getRoster()){
                     p.removeGames(game);
                 }
                 rosters.remove(i);
@@ -125,10 +125,32 @@ public class Organizer{
         return total;
     }
 
+    public String printPlayerNamesInRoster(String game){
+        String total = "";
+        for(Roster r: rosters){
+            if(r.getGame().equals(game)){
+                for(Player p: r.getRoster()){
+                    total += p.getName() + ", ";
+                }
+            }
+        }
+        return total;
+    }
+
     //Applies a strike to a player
     public void applyStrike(int osis){
         for(Player p: players){
             p.assignStrike();
         }
+    }
+
+    //Registers the roster in quesetion, unless the game does not exist or roster does not have enough players
+    public String registerRoster(String game){
+        for(Roster r: rosters){
+            if(r.getGame().equals(game)){
+                if(r.register()) return "Registered " + game + " successfully";
+            }
+        }
+        return "Registration failed";
     }
 }
